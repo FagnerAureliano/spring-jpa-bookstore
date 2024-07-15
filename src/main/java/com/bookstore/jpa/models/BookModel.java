@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -14,6 +15,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -41,4 +43,7 @@ public class BookModel implements Serializable {
     @ManyToMany
     @JoinTable(name = "TB_BOOK_AUTHOR", joinColumns = @JoinColumn(name = "BOOK_ID"), inverseJoinColumns = @JoinColumn(name = "AUTHOR_ID"))
     private Set<AuthorModel> authors = new HashSet<>();
+
+    @OneToOne(mappedBy = "book", cascade =  CascadeType.ALL)
+    private ReviewModel review;
 }
