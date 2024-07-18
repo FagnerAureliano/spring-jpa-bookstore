@@ -5,6 +5,8 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -35,12 +37,14 @@ public class BookModel implements Serializable {
 
     @Column(nullable = false, unique = true)
     private String title;
-
-    @ManyToOne
+    
+    // @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @ManyToOne //(fetch = jakarta.persistence.FetchType.LAZY)
     @JoinColumn(name = "PUBLISHER_ID")
     private PublisherModel publisher;
 
-    @ManyToMany
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @ManyToMany //(fetch = jakarta.persistence.FetchType.LAZY)
     @JoinTable(name = "TB_BOOK_AUTHOR", joinColumns = @JoinColumn(name = "BOOK_ID"), inverseJoinColumns = @JoinColumn(name = "AUTHOR_ID"))
     private Set<AuthorModel> authors = new HashSet<>();
 
