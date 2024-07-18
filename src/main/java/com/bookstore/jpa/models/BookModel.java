@@ -38,7 +38,7 @@ public class BookModel implements Serializable {
     @Column(nullable = false, unique = true)
     private String title;
     
-    // @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @ManyToOne //(fetch = jakarta.persistence.FetchType.LAZY)
     @JoinColumn(name = "PUBLISHER_ID")
     private PublisherModel publisher;
